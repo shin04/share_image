@@ -1,0 +1,13 @@
+{% extends 'images/base.html' %}
+
+{% block content %}
+  <h1>投稿一覧</h1>
+  {% for post in posts %}
+    {% if post.author.username == user.username %}
+      <div class="post">
+        <p><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></p>
+        <img src='{{ MEDIA_URL }}{{post.photo}}' width=200>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endblock %}

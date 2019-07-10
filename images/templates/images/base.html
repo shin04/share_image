@@ -1,0 +1,29 @@
+{% load static %}
+<html>
+  <head>
+    <title>Share Images</title>
+      <link rel="stylesheet" href="{% static 'css/images.css' %}">
+  </head>
+  <body>
+    <div class="header">
+      <h1><a href="/">Share Images</a></h1>
+      {% if user.is_authenticated %}
+        <p>Hello {{ user.username }}</p>
+        <a href="{% url 'post_new' %}">新規作成</a>
+        <a href="{% url 'post_draft_list' %}">下書き一覧</a>
+        <a href="{% url 'post_album' %}">アルバム</a>
+        <a href="{% url 'logout' %}">ログアウト</a>
+      {% else %}
+        <a href="{% url 'login' %}">ログイン</a>
+        <a href="{% url 'signup' %}">登録</a>
+      {% endif %}
+    </div>
+
+   <div class="content container">
+     <div class="row">
+       {% block content %}
+       {% endblock %}
+     </div>
+    </div>
+  </body>
+</html>
