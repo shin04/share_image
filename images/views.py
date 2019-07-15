@@ -1,8 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Comment
+from django.contrib.auth.models import User
 from .forms import PostFrom, CommentForm, SignUpForm
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+
+import django_filters
+from rest_framework import viewsets, filters
+from .serializer import PostSerializer, CommentSerializer, UserSerializer
 
 def signup(request):
     if request.method == 'POST':
@@ -98,3 +103,17 @@ def comment_remove(request, pk):
 def post_album(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     return render(request, 'images/post_album.html', {'posts':posts})
+
+# rest-framework用
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

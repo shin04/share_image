@@ -21,11 +21,14 @@ from django.contrib.auth import views
 from django.conf import settings
 from django.conf.urls.static import static
 
+from images.urls import router as blog_router # rest_framework
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/login/', views.LoginView.as_view(), name='login'),
     path('accounts/logout/', views.LogoutView.as_view(), name='logout'),
     path('', include('images.urls')),
+    path('api/', include(blog_router.urls)), # rest_framework
 ]
 
 if settings.DEBUG:

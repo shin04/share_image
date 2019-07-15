@@ -1,5 +1,14 @@
 from django.urls import path
 from . import views
+from .views import PostViewSet, CommentViewSet, UserViewSet
+
+from rest_framework import routers #rest_framework
+
+# rest_framework
+router = routers.DefaultRouter()
+router.register('posts', PostViewSet)
+router.register('comments', CommentViewSet)
+router.register('users', UserViewSet)
 
 urlpatterns = [
     path('', views.post_list, name='post_list'),
